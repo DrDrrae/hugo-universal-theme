@@ -6,8 +6,7 @@
                 {{ if isset .Site.Params "formspree_action" }}
                 <!-- CONTACT FORM-->
                 <h2 class="lined text-uppercase mb-4">{{ i18n "contactForm" }}</h2>
-                <form {{ with .Site.Params.contact_form_ajax }}class="contact-form-ajax" {{ else }}{{ end }} method="post"
-                    action="{{ .Site.Params.formspree_action }}">
+                <form method="post" action="{{ .Site.Params.formspree_action }}">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="name">{{ i18n "contactName" }}</label>

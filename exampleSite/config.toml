@@ -419,9 +419,8 @@ paginate = 10
     #
     # Enable the contact form by entering your Formspree.io endpoint url
     formspree_action = "https://formspree.io/sample/of/endpoint"
-    contact_form_ajax = false
 
-    # Formspree form supports Google reCAPTCHA Key (type v3).
+    # Formspree form supports Google reCAPTCHA Key (type v2).
     # If you use this feature, you should enable reCAPTCHA feature in the Formspree dashboard.
     #
     # By default, Formspree use a redirect page for recaptcha widget.
@@ -429,7 +428,7 @@ paginate = 10
     # (if you don't want, skip these steps)
     #
     #   1. register your site on Google recaptcha admin page: https://www.google.com/recaptcha/admin
-    #   2. select reCAPTCHA v3 and checkbox widget type.
+    #   2. select reCAPTCHA v2 and checkbox widget type.
     #   3. remember site key and secret key.
     #   4. enter secret key into "Custom reCAPTCHA Key" field in your Formspree form setting page.
     #   5. change `enableRecaptchaInContactForm` is to true
