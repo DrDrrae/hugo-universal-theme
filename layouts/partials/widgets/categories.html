@@ -1,22 +1,14 @@
 {{ if .Site.Params.widgets.categories }}
 {{ if isset .Site.Taxonomies "categories" }}
 {{ if not (eq (len .Site.Taxonomies.categories) 0) }}
-<div class="panel panel-default sidebar-menu">
-
-    <div class="panel-heading">
-        <h3 class="panel-title">{{ i18n "categoriesTitle" }}</h3>
-    </div>
-
-    <div class="panel-body">
-        <ul class="nav nav-pills nav-stacked">
+<div class="mb-4">
+    <h3 class="h4 lined text-uppercase mb-4">{{ i18n "categoriesTitle" }}</h3>
+    <nav class="nav flex-column nav-pills">
             {{ $current := . }}
             {{ range $name, $items := .Site.Taxonomies.categories }}
-            <li{{ if eq $current.RelPermalink ($name | urlize | lower | printf "/categories/%s/") }} class="active"{{ end }}>
-                <a href="{{ "categories/" | relLangURL }}{{ $name | urlize | lower }}">{{ $name | upper }} ({{ len $items }})</a>
-            </li>
+            <a class="nav-link text-sm{{ if in $current.RelPermalink ($name | urlize | lower | printf "/categories/%s/") }} active{{ end }}" href="{{ "categories/" | relLangURL }}{{ $name | urlize | lower }}">{{ $name | upper }} ({{ len $items }})</a>
             {{ end }}
-        </ul>
-    </div>
+    </nav>
 
 </div>
 {{ end }}

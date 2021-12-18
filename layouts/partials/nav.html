@@ -1,161 +1,141 @@
-<header class="navbar-affixed-top" data-spy="affix" data-offset-top="62">
-    <div class="navbar navbar-default yamm" role="navigation" id="navbar">    
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand home" href="{{ "/" | relURL }}">
-                    {{ if default false .Site.Params.disabled_logo }}
-                      <h4>{{ .Site.Params.logo_text }}</h4>
-                    {{ else }}
-                      <img src="{{ .Site.Params.logo | relURL }}" alt="{{ .Title }} logo" class="hidden-xs hidden-sm" />
-                      <img src="{{ .Site.Params.logo_small | relURL }}" alt="{{ .Title }} logo" class="visible-xs visible-sm" />
-                    {{ end }}
-                    <span class="sr-only">{{ .Title }} - {{ i18n "navHome" }}</span>
-                </a>
-                <div class="navbar-buttons">
-                    <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
-                      <span class="sr-only">{{ i18n "navToggle" }}</span>
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-                </div>
-            </div>
-            <!--/.navbar-header -->
+<!-- Navbar Sticky-->
+<header class="nav-holder make-sticky">
+  <div class="navbar navbar-light bg-white navbar-expand-lg py-0" id="navbar">
+    <div class="container py-3 py-lg-0 px-lg-0">
+      <!-- Navbar brand--><a class="navbar-brand" href="{{ "/" | relURL }}">
+        {{ if default false .Site.Params.disabled_logo }}
+        <h4>{{ .Site.Params.logo_text }}</h4>
+        {{ else }}
+        <img class="d-none d-md-inline-block" src="{{ .Site.Params.logo | relURL }}" alt="{{ .Title }} logo">
+        <img class="d-inline-block d-md-none" src="{{ .Site.Params.logo_small | relURL }}" alt="{{ .Title }} logo">
+        {{ end }}
+        <span class="sr-only">{{ .Title }} - {{ i18n "navHome" }}</span></a>
+      <!-- Navbar toggler-->
+      <button class="navbar-toggler text-primary border-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">{{ i18n "navToggle" }}</span>
+        <i class="fas fa-align-justify"></i>
+      </button>
+      <!-- Collapsed Navigation    -->
+      <div class="collapse navbar-collapse" id="navigationCollapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          {{ $current := . }}
 
-            <div class="navbar-collapse collapse" id="navigation">
-                <ul class="nav navbar-nav navbar-right">
-                  {{ $current := . }}
-                  
-                  {{ range .Site.Menus.main.ByWeight }}
-                  {{ $topLevel := replace .URL "/" "" }}
-                  {{ $active := "" }}
+          {{ range .Site.Menus.main.ByWeight }}
+          {{ $topLevel := replace .URL "/" "" }}
+          {{ $active := "" }}
 
-                  {{ if eq $current.RelPermalink .URL }}
-                    {{ $active = "active" }}
-                  {{ end }}
+          {{ if eq $current.RelPermalink .URL }}
+            {{ $active = "active" }}
+          {{ end }}
 
-                  {{ if eq $current.Type $topLevel }}
-                    {{ $active = "active" }}
-                  {{ end }}
+          {{ if eq $current.Type $topLevel }}
+            {{ $active = "active" }}
+          {{ end }}
 
-                  {{ if and (or (eq $current.RelPermalink .URL) (eq "term" $current.Kind)) (in (slice "page" "term") $current.Kind) }}
-                    {{ range (split .URL "/") }}
-                      {{ if eq "blog" . }}
-                        {{ $active = "active" }}
+          {{ if and (or (eq $current.RelPermalink .URL) (eq "term" $current.Kind)) (in (slice "page" "term") $current.Kind) }}
+            {{ range (split .URL "/") }}
+              {{ if eq "blog" . }}
+                {{ $active = "active" }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+
+          {{ if .HasChildren }}
+            <!-- Check if the first child marks a menu section identifier -->
+            {{ $hasSections := (hasPrefix (index .Children 0).Identifier "section.") }}
+            <li class="nav-item dropdown{{ if $hasSections }} menu-large{{ end }}"><a class="nav-link dropdown-toggle {{ $active }}" id="{{ .Name | urlize}}Dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ .Name }}</a>
+              {{ if $hasSections }}
+                <ul class="dropdown-menu megamenu p-4" aria-labelledby="{{ .Name | urlize}}Dropdown">
+                  <li>
+                    <div class="row">
+                      {{ if ne .URL "" }}
+                      <div class="col-lg-6"><img class="img-fluid d-none d-lg-block" src="{{ .URL }}" alt=""></div>
                       {{ end }}
-                    {{ end }}
-                  {{ end }}
-
-                  {{ if .HasChildren }}
-                    <!-- Check if the first child marks a menu section identifier -->
-                    {{ $hasSections := (hasPrefix (index .Children 0).Identifier "section.") }}
-                    <li class="dropdown{{ if $hasSections }} use-yamm yamm-fw{{end}} {{ $active }}">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
-                        {{ if $hasSections }}
-                        <ul class="dropdown-menu">
-                            <li>
-                            <div class="yamm-content">
-                            <div class="row">
-                                {{ if ne .URL "" }}
-                                <div class="col-sm-6">
-                                    <img src="{{ .URL }}" class="img-responsive hidden-xs"/>
-                                </div>
-                                {{ end }}
-                                <div class="col-sm-3">
-                                {{ range .Children.ByWeight }}
-                                    {{ $column := printf "%s" .Post }}
-                                    {{ if eq $column "1" }}
-                                    <h5>{{ .Name }}</h5>
-                                    {{ if .HasChildren }}
-                                    <ul>
-                                    {{ range .Children.ByWeight }}
-                                    <li><a href="{{ .URL }}">{{ .Name }}</a></li>                                
-                                    {{- end }}
-                                    </ul>
-                                    {{ end }}
-                                    {{ end }}
-                                {{ end }}
-                                </div>
-                                <div class="col-sm-3">
-                                {{ range .Children.ByWeight }}
-                                    {{ $column := printf "%s" .Post }}
-                                    {{ if eq $column "2" }}
-                                    <h5>{{ .Name }}</code></h5>
-                                    {{ if .HasChildren }}
-                                    <ul>
-                                    {{ range .Children.ByWeight }}
-                                    <li><a href="{{ .URL }}">{{ .Name }}</a></li>                                
-                                    {{ end }}
-                                    </ul>
-                                    {{ end }}
-                                    {{ end }}
-                                {{ end }}
-                                </div>
-                                {{ if eq .URL "" }}
-                                <div class="col-sm-3">
-                                {{ range .Children }}
-                                    {{ $column := printf "%s" .Post }}
-                                    {{ if eq $column "3" }}
-                                    <h5>{{ .Name }}</code></h5>
-                                    {{ if .HasChildren }}
-                                    <ul>
-                                    {{ range .Children.ByWeight }}
-                                    <li><a href="{{ .URL }}">{{ .Name }}</a></li>                                
-                                    {{ end }}
-                                    </ul>
-                                    {{ end }}
-                                    {{ end }}
-                                {{ end }}
-                                </div>
-                                <div class="col-sm-3">
-                                {{ range .Children }}
-                                    {{ $column := printf "%s" .Post }}
-                                    {{ if eq $column "4" }}
-                                    <h5>{{ .Name }}</code></h5>
-                                    {{ if .HasChildren }}
-                                    <ul>
-                                    {{ range .Children.ByWeight }}
-                                    <li><a href="{{ .URL }}">{{ .Name }}</a></li>                                
-                                    {{ end }}
-                                    </ul>
-                                    {{ end }}
-                                    {{ end }}
-                                {{ end }}
-                                </div>
-                                {{ end }}
-                            </div>
-                            </div>
-                            </li>
-                        </ul>
-                        {{ else }}
-                        <ul class="dropdown-menu">
+                      <div class="col-lg-3 col-md-6">
+                        {{ range .Children.ByWeight }}
+                          {{ $column := printf "%s" .Post }}
+                          {{ if eq $column "1" }}
+                          <h5 class="text-dark text-uppercase pb-2 border-bottom">{{ .Name }}</h5>
+                          {{ if .HasChildren }}
+                          <ul class="list-unstyled mb-3">
                             {{ range .Children.ByWeight }}
-                            <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                            <li class="nav-item"><a class="nav-link-sub py-2 text-uppercase"
+                                href="{{ .URL }}">{{ .Name }}</a></li>
                             {{ end }}
+                          </ul>
+                          {{ end }}
+                          {{ end }}
+                        {{ end }}
+                      </div>
+                      <div class="col-lg-3 col-md-6">
+                        {{ range .Children.ByWeight }}
+                        {{ $column := printf "%s" .Post }}
+                        {{ if eq $column "2" }}
+                        <h5 class="text-dark text-uppercase pb-2 border-bottom">{{ .Name }}</h5>
+                        {{ if .HasChildren }}
+                        <ul class="list-unstyled mb-3">
+                          {{ range .Children.ByWeight }}
+                          <li class="nav-item"><a class="nav-link-sub py-2 text-uppercase" href="{{ .URL }}">{{ .Name }}</a></li>
+                          {{ end }}
                         </ul>
                         {{ end }}
-                    </li>
-                  {{ else }}
-                  <li class="dropdown {{ $active }}">
-                    <a href="{{ .URL }}">{{ .Name }}</a>
+                        {{ end }}
+                      {{ end }}
+                      </div>
+                      {{ if eq .URL "" }}
+                      <div class="col-lg-3 col-md-6">
+                        {{ range .Children }}
+                        {{ $column := printf "%s" .Post }}
+                        {{ if eq $column "3" }}
+                        <h5 class="text-dark text-uppercase pb-2 border-bottom">{{ .Name }}</h5>
+                        {{ if .HasChildren }}
+                        <ul class="list-unstyled mb-3">
+                          {{ range .Children.ByWeight }}
+                          <li class="nav-item"><a class="nav-link-sub py-2 text-uppercase" href="{{ .URL }}">{{ .Name }}</a></li>
+                          {{ end }}
+                        </ul>
+                        {{ end }}
+                        {{ end }}
+                      {{ end }}
+                      </div>
+                      <div class="col-lg-3 col-md-6">
+                        {{ range .Children }}
+                        {{ $column := printf "%s" .Post }}
+                        {{ if eq $column "3" }}
+                        <h5 class="text-dark text-uppercase pb-2 border-bottom">{{ .Name }}</h5>
+                        {{ if .HasChildren }}
+                        <ul class="list-unstyled mb-3">
+                          {{ range .Children.ByWeight }}
+                          <li class="nav-item"><a class="nav-link-sub py-2 text-uppercase" href="{{ .URL }}">{{ .Name }}</a></li>
+                          {{ end }}
+                        </ul>
+                        {{ end }}
+                        {{ end }}
+                        {{ end }}
+                      </div>
+                      {{ end }}
+                    </div>
                   </li>
-                  {{ end }}
+                </ul>
+              {{ else }}
+                <ul class="dropdown-menu" aria-labelledby="{{ .Name | urlize}}Dropdown">
+                  {{ range .Children.ByWeight }}
+                  <li><a class="dropdown-item text-uppercase border-bottom" href="{{ .URL }}">{{ .Name }}</a></li>
                   {{ end }}
                 </ul>
-            </div>
-            <!--/.nav-collapse -->
-
-            <div class="collapse clearfix" id="search">    
-                <form class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                        <span class="input-group-btn">
-                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
-                </span>
-                    </div>
-                </form>
-            </div>
-            <!--/.nav-collapse -->
-        </div>
+              {{ end }}
+            </li>
+          {{ else }}
+            <li class="nav-item dropdown">
+              <a class="nav-link {{ $active }}" href="{{ .URL }}">{{ .Name }}</a>
+            </li>
+          {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
     </div>
+  </div>
 </header>
 
 <!-- *** NAVBAR END ***-->

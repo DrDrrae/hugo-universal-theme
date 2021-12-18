@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "на"
 
+- id: publishedIn
+  translation: "в"
+
 - id: 404Error
   translation: "Error 404: Page not found"
 

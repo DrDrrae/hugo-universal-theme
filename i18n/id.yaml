@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "pada"
 
+- id: publishedIn
+  translation: "di"
+
 - id: 404Error
   translation: "Error 404: Page not found"
 

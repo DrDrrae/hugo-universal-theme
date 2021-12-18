@@ -8,101 +8,96 @@
 
   <body>
 
-    <div id="all">
+    <div class="wide" id="all">
 
         {{ partial "nav.html" . }}
 
         {{ partial "breadcrumbs.html" . }}
 
-        <div id="content">
-            <div class="container">
-                <div class="row">
-                    <!-- *** LEFT COLUMN *** -->
-
-                    <div class="col-md-9" id="blog-listing-medium">
+        <section class="py-5">
+            <div class="container py-4">
+                <div class="row gy-5">
+                    <div class="col-lg-9">
 
                         {{ $paginator := .Paginate (where .Data.Pages "Type" "blog") }}
                         {{ range $paginator.Pages }}
-                        <section class="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="image">
-                                      <a href="{{ .Permalink }}">
-                                          {{ if .Params.banner }}
-                                          <img src="{{ .Params.banner | relURL }}" class="img-responsive" alt="">
-                                          {{ else }}
-                                          <img src="{{ "img/placeholder.png" | relURL }}" class="img-responsive" alt="">
-                                          {{ end }}
-                                      </a>
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-                                    <div class="clearfix">
-                                        <p class="author-category">
-                                          {{ if isset .Params "authors" }}
-					  {{ i18n "authorBy" }} {{ range $index, $author := .Params.authors }}{{ if $index }}, {{ end }}<a href="{{ (printf "%s/%s" ("authors" | relLangURL) ($author | urlize)) }}">{{ $author }}</a>{{ end }}
-                                          {{ end }}
-                                          {{ if isset .Params "categories" }}
-                                          {{ if gt (len .Params.categories) 0 }}
-                                          in 
-                                          {{ range $index, $category := .Params.categories }}{{ if $index }}, {{ end }}
-                                              <a href="{{ "categories/" | relURL }}{{ . | urlize | lower }}">{{ $category }}</a>{{ end }}
-                                          {{ end }}
-                                          {{ end }}
-
-                                        </p>
-                                        {{ if isset .Params "date" }}
-
-                                        {{ $createdAt := .Date.Format .Site.Params.date_format }}
-                                        {{ range $index, $month := slice "January" "February" "March" "April" "May" "June" "July" "August" "September" "October" "November" "December" }}
-                                            {{ $createdAt = replace $createdAt $month (i18n $month) }}
-                                        {{ end }}
-
-                                        <p class="date-comments">
-                                            <a href="{{ .Permalink }}"><i class="far fa-calendar"></i> {{ $createdAt }}</a>
-                                        </p>
-                                        {{ end }}
-                                    </div>
-                                    <p class="intro">{{ .Summary }}</p>
-                                    <p class="read-more"><a href="{{ .Permalink }}" class="btn btn-template-main">{{ i18n "continueReading" }}</a>
-                                    </p>
-                                </div>
+                        <!-- BLOG LISTING ITEM-->
+                        <div class="row gy-4 mb-5">
+                            <div class="col-lg-4"><a class="d-block" href="{{ .Permalink }}">
+                                {{ if .Params.banner }}
+                                <img  class="img-fluid" src="{{ .Params.banner | relURL }}" alt="">
+                                {{ else }}
+                                <img class="img-fluid" src="{{ " img/placeholder.png" | relURL }}" alt="">
+                                {{ end }}
                             </div>
-                        </section>
-                        {{ end }}
+                            <div class="col-lg-8">
+                                <h2 class="h3 text-uppercase mb-3"><a class="text-dark" href="{{ .Permalink }}">{{ .Title }}</a></h2>
+                                <div class="row gy-2 mb-4">
+                                    <div class="col-xl-6">
+                                        <p class="text-sm text-uppercase mb-0 fw-light text-muted">
+                                            {{ if isset .Params "authors" }}
+                                                {{ i18n "authorBy" }} {{ range $index, $author := .Params.authors }}{{ if $index }}, {{ end }}
+                                                <a class="fw-normal" href="{{ (printf " %s/%s" ("authors" | relLangURL) ($author | urlize)) }}">{{ $author }}</a>{{ end }}
+                                                {{ end }}
+                                            {{ if isset .Params "categories" }}
+                                                {{ if gt (len .Params.categories) 0 }}
+                                                    {{ i18n "publishedIn" }} {{ range $index, $category := .Params.categories }}{{ if $index }}, {{ end }}
+                                                    <a class="fw-normal" href="{{ " categories/" | relURL }}{{ . | urlize | lower }}">{{ $category }}</a>{{ end }}
+                                            {{ end }}
+                                            {{ end }}
+                                        </p>
+                                    </div>
+                                    {{ if isset .Params "date" }}
+                                    {{ $createdAt := .Date.Format .Site.Params.date_format }}
+                                    {{ range $index, $month := slice "January" "February" "March" "April" "May" "June" "July" "August" "September" "October"
+                                    "November" "December" }}
+                                    {{ $createdAt = replace $createdAt $month (i18n $month) }}
+                                    {{ end }}
+                                    <div class="col-xl-6">
+                                        <p class="text-xl-end text-sm mb-0 text-muted">
+                                            <a class="text-muted me-3" href="{{ .Permalink }}"><i class="far fa-calendar me-1"></i> {{ $createdAt }}</a>
+                                        </p>
+                                    </div>
+                                    {{ end }}
+                                </div>
+                                <p class="text-sm text-gray-700 mb-3">{{ .Summary }}</p>
+                                <p class="text-end"><a class="btn btn-outline-primary" href="blog-post.html">{{ i18n "continueReading" }}</a></p>
+                            </div>
+                        </div>
+                    {{ end }}
 
-                        <ul class="pager">
+                    <!-- LISTING PAGER    -->
+                    <div class="py-4 border-top">
+                        <div class="d-flex align-items-center justify-content-between">
                             {{ if .Paginator.HasPrev }}
-                            <li class="previous"><a href="{{ .Paginator.Prev.URL | relURL }}">&larr; {{ i18n "newer" }}</a></li>
+                                <a class="btn btn-outline-primary disabled" href="{{ .Paginator.Prev.URL | relURL }}"><i class="fas fa-long-arrow-alt-left me-2"></i>{{ i18n "older" }}
                             {{ else }}
-                            <li class="previous disabled"><a href="#">&larr; {{ i18n "newer" }}</a></li>
+                                    <a class="btn btn-outline-primary disabled" href="#"><i class="fas fa-long-arrow-alt-left me-2"></i>{{ i18n "older" }}
                             {{ end }}
 
                             {{ if .Paginator.HasNext }}
-                            <li class="next"><a href="{{ .Paginator.Next.URL | relURL }}">{{ i18n "older" }} &rarr;</a></li>
+                                <a class="btn btn-outline-primary" href="{{ .Paginator.Next.URL | relURL }}">{{ i18n "newer" }}<i class="fas fa-long-arrow-alt-right ms-2"></a>
                             {{ else }}
-                            <li class="next disabled"><a href="#">{{ i18n "older" }} &rarr;</a></li>
+                                <a class="btn btn-outline-primary disabled" href="#">{{ i18n "newer" }}<i class="fas fa-long-arrow-alt-right ms-2"></i></a>
                             {{ end }}
-                        </ul>
+                            </a>
+                        </div>
                     </div>
-                    <!-- /.col-md-9 -->
+                </div>
 
-                    <!-- *** LEFT COLUMN END *** -->
+                <!-- *** LEFT COLUMN END *** -->
 
-                    <!-- *** RIGHT COLUMN ***
-       _________________________________________________________ -->
+                <!-- *** RIGHT COLUMN *** -->
 
-                    <div class="col-md-3">
+                <div class="col-lg-3">
 
-                        <!-- *** MENUS AND WIDGETS *** -->
+                    <!-- *** MENUS AND WIDGETS *** -->
 
-                        {{ partial "sidebar.html" . }}
+                    {{ partial "sidebar.html" . }}
 
-                        <!-- *** MENUS AND FILTERS END *** -->
+                    <!-- *** MENUS AND FILTERS END *** -->
 
-                    </div>
-                    <!-- /.col-md-3 -->
+                </div>
 
                     <!-- *** RIGHT COLUMN END *** -->
 

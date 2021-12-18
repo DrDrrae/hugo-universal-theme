@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "el"
 
+- id: publishedIn
+  translation: "en"
+
 - id: 404Error
   translation: "Error 404: Pàgina no trobada"
 

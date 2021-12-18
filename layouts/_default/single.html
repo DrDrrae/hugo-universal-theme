@@ -8,74 +8,47 @@
 
   <body>
 
-    <div id="all">
+    <div class="wide" id="all">
 
         {{ partial "nav.html" . }}
 
         {{ partial "breadcrumbs.html" . }}
 
-        <div id="content">
-            <div class="container">
+        <!-- BLOG POST SECTION -->
+        <section class="py-5">
+          <div class="container py-4">
+            <div class="row gy-5">
+              <div class="col-lg-9">
+                <!-- Post content-->
+                {{ if or .Params.authors .Params.date }}
+                <p class="text-muted text-uppercase mb-4 text-end text-sm">
+                  {{ if isset .Params "authors" }}
+                    {{ i18n "authorBy" }} {{ range $index, $author := .Params.authors }}{{ if $index }}, {{ end }}<a href="{{ (printf "%s/%s" ("authors" | relLangURL) ($author | urlize)) }}">{{ $author }}</a>{{ end }}
+                  {{ end }}
+                  {{ if and .Params.authors .Params.date }} | {{ end }}
+                  {{ if .Params.date }}
+                    {{ $createdAt := .Date.Format .Site.Params.date_format }}
+                    {{ range $index, $month := slice "January" "February" "March" "April" "May" "June" "July" "August" "September" "October" "November" "December" }}
+                        {{ $createdAt = replace $createdAt $month (i18n $month) }}
+                    {{ end }}
+                    {{ $createdAt }}
+                  {{ end }}
+                </p>
+                {{ end }}
+                {{ .Content }}
 
-                <div class="row">
-
-                    <!-- *** LEFT COLUMN *** -->
-
-                    <div class="col-md-9" id="blog-post">
-
-                        {{ if or .Params.author .Params.date }}
-                          <p class="text-muted text-uppercase mb-small text-right">
-                            {{ if isset .Params "authors" }}
-			      {{ i18n "authorBy" }} {{ range $index, $author := .Params.authors }}{{ if $index }}, {{ end }}<a href="{{ (printf "%s/%s" ("authors" | relLangURL) ($author | urlize)) }}">{{ $author }}</a>{{ end }}
-                            {{ end }}
-                            {{ if and .Params.author .Params.date }} | {{ end }}
-                            {{ if .Params.date }}
-                              {{ $createdAt := .Date.Format .Site.Params.date_format }}
-                              {{ range $index, $month := slice "January" "February" "March" "April" "May" "June" "July" "August" "September" "October" "November" "December" }}
-                                  {{ $createdAt = replace $createdAt $month (i18n $month) }}
-                              {{ end }}
-                              {{ $createdAt }}
-                            {{ end }}
-                          </p>
-                        {{ end }}
-
-                        <div id="post-content">
-                          {{ .Content }}
-                        </div>
-                        <!-- /#post-content -->
-                        {{ if .Site.DisqusShortname }}
-                        <div id="comments">
-                            {{ template "_internal/disqus.html" . }}
-                        </div>
-                        {{ end }}
-
-                    </div>
-                    <!-- /#blog-post -->
-
-                    <!-- *** LEFT COLUMN END *** -->
-
-                    <!-- *** RIGHT COLUMN *** -->
-
-                    <div class="col-md-3">
-
-                        <!-- *** MENUS AND WIDGETS *** -->
-
-                        {{ partial "sidebar.html" . }}
-
-                        <!-- *** MENUS AND FILTERS END *** -->
-
-                    </div>
-                    <!-- /.col-md-3 -->
-
-                    <!-- *** RIGHT COLUMN END *** -->
-
+                {{ if .Site.DisqusShortname }}
+                <div class="py-5 mb-5 border-top border-bottom">
+                  {{ template "_internal/disqus.html" . }}
                 </div>
-                <!-- /.row -->
-
+                {{ end }}
+              </div>
+              <div class="col-lg-3">
+                {{ partial "sidebar.html" . }}
+              </div>
             </div>
-            <!-- /.container -->
-        </div>
-        <!-- /#content -->
+          </div>
+        </section>
 
         {{ partial "footer.html" . }}
 

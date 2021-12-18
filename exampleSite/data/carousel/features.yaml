@@ -1,10 +1,10 @@
 weight: 2
 title: "46 HTML pages full of features"
 description: >
-  <ul class="list-style-none">
-     <li>Sliders and carousels</li>
-     <li>4 Header variations</li>
-     <li>Google maps, Forms, Megamenu, CSS3 Animations and much more</li>
-     <li>+ 11 extra pages showing template features</li>
+  <ul class="list-unstyled text-uppercase fw-bold mb-0">
+     <li class="mb-2">Sliders and carousels</li>
+     <li class="mb-2">4 Header variations</li>
+     <li class="mb-2">Google maps, Forms, Megamenu, CSS3 Animations and much more</li>
+     <li class="mb-2">+ 11 extra pages showing template features</li>
    </ul>
 image: "img/carousel/template-mac.png"

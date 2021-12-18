@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "pe"
 
+- id: publishedOn
+  translation: "în"
+
 - id: 404Error
   translation: "Eroare 404: Pagina nu a fost găsită"
 

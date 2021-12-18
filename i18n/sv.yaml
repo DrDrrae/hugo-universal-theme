@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "på"
 
+- id: publishedOn
+  translation: "i"
+
 - id: 404Error
   translation: "Error 404: Page not found"
 

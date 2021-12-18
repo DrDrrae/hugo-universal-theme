@@ -144,14 +144,13 @@ id = "contact"
 +++
 ```
 
-You can enable or disable the Google Maps widget on the contact page by setting `params.enableGoogleMaps` to `true` or `false` in `config.toml`. Make sure to also provide a valid `googleMapsApiKey` if you decide to enable the widget – otherwise it likely won't work. By clicking on the pin, Google Maps opens a route description with the coordinates `latitude` and `longitude`. Additionally, you can define the `direction` if you want to have another destination for the directions or the Google Maps entry of your company. If `enableGoogleMaps` is set to `false` on the other hand, the subsequent `googleMapsApiKey`, `latitude`, `longitude` and `direction` will be ignored.
+You can enable or disable the Google Maps widget on the contact page by setting `params.enableOpenStreetMaps` to `true` or `false` in `config.toml`. By clicking on the pin, Open Street Maps opens a route description with the coordinates `latitude` and `longitude`. Additionally, you can define the `direction` if you want to have another destination for the directions or the Google Maps entry of your company.
 
 Example configuration:
 
 ```toml
 [params]
-    enableGoogleMaps = true
-    googleMapsApiKey = "site_key_for_google_maps"
+    enableOpenStreetMaps = true
 
     latitude = "-12.043333"
     longitude = "-77.028333"

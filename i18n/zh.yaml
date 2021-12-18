@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "在"
 
+- id: publishedIn
+  translation: "中"
+
 - id: 404Error
   translation: "Error 404: Page not found"
 

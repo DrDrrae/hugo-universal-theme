@@ -357,31 +357,31 @@ paginate = 10
     weight = 1
     name = "Phone"
     url = "tel:+12 34 567 89 01"
-    pre = "<i class='fas fa-2x fa-phone'></i>"
+    pre = "<i class='fas fa-phone'></i>"
 
 [[menu.topbar]]
     weight = 2
     name = "GitHub"
     url = "https://github.com/devcows/hugo-universal-theme"
-    pre = "<i class='fab fa-2x fa-github'></i>"
+    pre = "<i class='fab fa-github'></i>"
 
 [[menu.topbar]]
     weight = 3
     name = "Facebook"
     url = "http://facebook.com"
-    pre = "<i class='fab fa-2x fa-facebook'></i>"
+    pre = "<i class='fab fa-facebook-f'></i>"
 
 [[menu.topbar]]
     weight = 4
     name = "Twitter"
     url = "http://twitter.com"
-    pre = "<i class='fab fa-2x fa-twitter'></i>"
+    pre = "<i class='fab fa-twitter'></i>"
 
 [[menu.topbar]]
     weight = 5
     name = "Email"
     url = "mailto:hello@universal.com"
-    pre = "<i class='fas fa-2x fa-envelope'></i>"
+    pre = "<i class='fa fa-envelope'></i>"
 
 [params]
     viewMorePostLink = "/blog/"
@@ -395,9 +395,8 @@ paginate = 10
     twitter_site = "GoHugoIO" # the Twitter handle of your site (without the '@')
     default_sharing_image = "img/sharing-default.png"
 
-    # Google Maps widget: If `googleMapsApiKey` is not set, no key will be passed to Google (which likely results in a broken map widget).
-    enableGoogleMaps = true
-    googleMapsApiKey = "AIzaSyAv7Sza8NSp9_l_g8G2vlo0H4ydEPn_2jY"
+    # Open Street Maps widget:
+    enableOpenStreetMaps = true
 
     latitude = "-12.043333"
     longitude = "-77.028333"
@@ -422,7 +421,7 @@ paginate = 10
     formspree_action = "https://formspree.io/sample/of/endpoint"
     contact_form_ajax = false
 
-    # Formspree form supports Google reCAPTCHA Key (type v2).
+    # Formspree form supports Google reCAPTCHA Key (type v3).
     # If you use this feature, you should enable reCAPTCHA feature in the Formspree dashboard.
     #
     # By default, Formspree use a redirect page for recaptcha widget.
@@ -430,7 +429,7 @@ paginate = 10
     # (if you don't want, skip these steps)
     #
     #   1. register your site on Google recaptcha admin page: https://www.google.com/recaptcha/admin
-    #   2. select reCAPTCHA v2 and checkbox widget type.
+    #   2. select reCAPTCHA v3 and checkbox widget type.
     #   3. remember site key and secret key.
     #   4. enter secret key into "Custom reCAPTCHA Key" field in your Formspree form setting page.
     #   5. change `enableRecaptchaInContactForm` is to true
@@ -440,7 +439,7 @@ paginate = 10
     googleRecaptchaKey = "site_key_for_google_recaptcha"
 
     about_us = "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>"
-    copyright = "Copyright (c) 2015 - 2016, YourCompany; all rights reserved."
+    copyright = "© 2021. Your company / name goes here."
 
     # Format dates with Go's time formatting
     date_format = "January 2, 2006"
@@ -467,11 +466,7 @@ paginate = 10
 # Enable or disable top bar with social icons
 [params.topbar]
     enable = true
-    text = """<p class="hidden-sm hidden-xs">Contact us on +420 777 555 333 or hello@universal.com.</p>
-      <p class="hidden-md hidden-lg"><a href="tel:+420 777 555 333" data-animate-hover="pulse"><i class="fas fa-phone"></i></a>
-      <a href="mailto:hello@universal.com" data-animate-hover="pulse"><i class="fas fa-envelope"></i></a>
-      </p>
-      """
+    text = "Contact us on +420 777 555 333 or hello@universal.com."
 
 # Enable and disable widgets for the right sidebar
 [params.widgets]
@@ -482,13 +477,13 @@ paginate = 10
 [params.carouselCustomers]
     items = 6
     auto_play = false
-    slide_speed = 2000
+    slide_speed = 3000
     pagination_speed = 1000
 
 [params.carouselTestimonals]
     items = 4
     auto_play = false
-    slide_speed = 2000
+    slide_speed = 3000
     pagination_speed = 1000
 
 [params.carouselHomepage]
@@ -497,12 +492,12 @@ paginate = 10
     # For more informtion take a look at the README.
     enable = true
     auto_play = true
-    slide_speed = 2000
+    slide_speed = 3000
     pagination_speed = 1000
 
 [params.features]
     enable = true
-    cols = 3 # Default: 3, Available values 2,3,4,6
+    #cols = 3 # Default: 3, Available values 2,3,4,6
     # All features are defined in their own files. You can find example items
     # at 'exampleSite/data/features'.
     # For more informtion take a look at the README.
@@ -529,7 +524,7 @@ paginate = 10
     # at 'exampleSite/data/clients'.
     # For more informtion take a look at the README.
     title = "Our Clients"
-    subtitle = ""
+    subtitle = "This is our clients subtitle."
 
 [params.recent_posts]
     enable = true

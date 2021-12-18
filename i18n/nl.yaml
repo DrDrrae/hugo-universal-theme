@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "op"
 
+- id: publishedIn
+  translation: "in"
+
 - id: 404Error
   translation: "Fout 404: Pagina niet gevonden"
 

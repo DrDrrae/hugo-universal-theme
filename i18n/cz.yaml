@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "Zveřejněno"
 
+- id: publishedIn
+  translation: "Uvnitř"
+
 - id: 404Error
   translation: "Chyba 404: Stránka nebyla nalezena"
 

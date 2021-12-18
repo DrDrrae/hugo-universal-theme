@@ -25,6 +25,21 @@
 - id: contactMail
   translation: "Your Email"
 
+- id: contactTel
+  translation: "Your Telephone Number"
+
+- id: contactAddress
+  translation: "Your Street Address"
+
+- id: contactCity
+  translation: "Your City"
+
+- id: contactState
+  translation: "Your State"
+
+- id: contactZipCode
+  translation: "Your Zip Code"
+
 - id: contactMessage
   translation: "Your Message"
 
@@ -69,6 +84,9 @@
 
 - id: publishedOn
   translation: "on"
+
+- id: publishedIn
+  translation: "in"
 
 - id: 404Error
   translation: "Error 404: Page not found"

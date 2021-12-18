@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "日付"
 
+- id: publishedIn
+  translation: "の"
+
 - id: 404Error
   translation: "Error 404: Page not found"
 
@@ -80,7 +83,6 @@
   translation: "ホームへ戻る"
 
 - id: January
-  translation: January
 
 - id: February
   translation: February

@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "le"
 
+- id: publishedIn
+  translation: "dans"
+
 - id: 404Error
   translation: "Erreur 404: Page introuvable"
 

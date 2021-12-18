@@ -70,6 +70,9 @@
 - id: publishedOn
   translation: "dnia"
 
+- id: publishedIn
+  translation: "w"
+
 - id: 404Error
   translation: "Błąd 404: nie znaleziono strony"
 

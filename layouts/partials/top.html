@@ -1,20 +1,22 @@
 {{ if .Site.Params.topbar.enable }}
-<header>
-  <div id="top">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-5">
-          {{ .Site.Params.topbar.text | safeHTML }}
-        </div>
-        <div class="col-xs-7">
-          <div class="social">
+<!-- Top bar-->
+<div class="top-bar py-2" id="topBar" style="background: #555">
+  <div class="container px-lg-0 text-light py-1">
+    <div class="row d-flex align-items-center">
+      <div class="col-md-6 d-md-block d-none">
+        <p class="mb-0 text-xs">{{ .Site.Params.topbar.text | safeHTML }}</p>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex justify-content-md-end justify-content-between">
+          <ul class="list-inline mb-0 ms-lg-4">
             {{ range .Site.Menus.topbar.ByWeight }}
-            <a href="{{ .URL | safeURL }}" target="_blank" style="opacity: 1;">{{ .Pre }}</a>
+            <li class="list-inline-item text-gray-600 m-0"><a class="text-xs social-link-hover" href="{{ .URL | safeURL }}" target="_blank" style="opacity: 1;">{{ .Pre }}</a></li>
             {{ end }}
-          </div>
+          </ul>
         </div>
       </div>
     </div>
   </div>
-</header>
+</div>
+<!-- Top bar end-->
 {{ end }}

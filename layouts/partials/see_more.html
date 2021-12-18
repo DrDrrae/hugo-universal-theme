@@ -1,26 +1,25 @@
 {{ if isset .Site.Params "see_more" }}
 {{ if .Site.Params.see_more.enable }}
-<section class="bar background-image-fixed-2 no-mb color-white text-center">
-    <div class="dark-mask"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="icon icon-lg"><i class="{{ .Site.Params.see_more.icon }}"></i>
-                </div>
-                <h3 class="text-uppercase">{{ .Site.Params.see_more.title | markdownify }}</h3>
-                <p class="lead">{{ .Site.Params.see_more.subtitle | markdownify }}</p>
-                <p class="text-center">
-                    {{ with .Site.Params.see_more.link_url }}
-                    <a href="{{ . }}" class="btn btn-template-transparent-black btn-lg">
-                    {{ end }}
-                        {{ with .Site.Params.see_more.link_text }}
-                        {{ . | markdownify }}
-                        {{ end }}
-                    {{ with .Site.Params.see_more.link_url }}
-                    </a>
-                    {{ end }}
-                </p>
+<!-- BANNER SECTION-->
+<section class="py-5 bg-fixed bg-cover bg-center dark-overlay" style="background: url(img/fixed-background-2.jpg)">
+    <div class="overlay-content">
+        <div class="container py-4 text-white text-center">
+            <div class="icon icon-outlined icon-lg mx-auto mb-4">
+                <svg class="svg-icon text-white svg-icon-lg">
+                    <use xlink:href="#numbers-1"> </use>
+                </svg>
             </div>
+            <h2 class="text-uppercase mb-3">{{ .Site.Params.see_more.title | markdownify }}</h2>
+                <p class="lead mb-4">{{ .Site.Params.see_more.subtitle | markdownify }}</p>
+                {{ with .Site.Params.see_more.link_url }}
+                <a class="btn btn-outline-light btn-lg" href="{{ . }}">
+                {{ end }}
+                    {{ with .Site.Params.see_more.link_text }}
+                    {{ . | markdownify }}
+                    {{ end }}
+                {{ with .Site.Params.see_more.link_url }}
+                </a>
+                {{ end }}
         </div>
     </div>
 </section>
